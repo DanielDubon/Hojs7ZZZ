@@ -1,86 +1,115 @@
 package Model;
 
-public class BST {
-
-
-    private Node root;
-
-
+public class BST<E extends Comparable<? super E>> {
+    private Node<E> root;
 
     public BST() {
         root = null;
     }
 
-    public void insert(int value) {
-        root = insert(root, value);
+    public boolean isEmpty() {
+        return root == null;
     }
 
-    private Node insert(Node node, int value) {
-        if (node == null) {
-            return new Node(value);
-        }
-
-        if (value < node.value) {
-            node.left = insert(node.left, value);
-        } else if (value > node.value) {
-            node.right = insert(node.right, value);
-        }
-
-        return node;
+    public void makeEmpty() {
+        root = null;
     }
 
-    public boolean search(int value) {
-        return search(root, value);
+    public void insert(E x) {
+        root = insert(x, root);
     }
 
-    private boolean search(Node node, int value) {
-        if (node == null) {
-            return false;
-        }
-
-        if (value == node.value) {
-            return true;
-        } else if (value < node.value) {
-            return search(node.left, value);
-        } else {
-            return search(node.right, value);
-        }
+    public void remove(E x) {
+        root = remove(x, root);
     }
 
-    public void delete(int value) {
-        root = delete(root, value);
-    }
-
-    private Node delete(Node node, int value) {
-        if (node == null) {
+    public E findMin() {
+        if (isEmpty())
             return null;
-        }
-
-        if (value < node.value) {
-            node.left = delete(node.left, value);
-        } else if (value > node.value) {
-            node.right = delete(node.right, value);
-        } else {
-            if (node.left == null) {
-                return node.right;
-            } else if (node.right == null) {
-                return node.left;
-            }
-
-            node.value = minValue(node.right);
-            node.right = delete(node.right, node.value);
-        }
-
-        return node;
+        return findMin(root).element;
     }
 
-    private int minValue(Node node) {
-        int minValue = node.value;
-        while (node.left != null) {
-            minValue = node.left.value;
-            node = node.left;
-        }
-        return minValue;
+    public E findMax() {
+        if (isEmpty())
+            return null;
+        return findMax(root).element;
     }
+
+    public boolean contains(E x) {
+        return contains(x, root);
+    }
+
+    public void printTree() {
+        if (isEmpty())
+            System.out.println("Empty tree");
+        else
+            printTree(root);
+    }
+
+    private Node<E> insert(E x, Node<E> t) {
+        if (t == null)
+            return new Node<>(x);
+        int compareResult = x.compareTo(t.element);
+        if (compareResult < 0)
+            t.left = insert(x,  t.left);
+        else if (compareResult > 0)
+            t.right = insert(x, t.right);
+        else
+            ; // duplicate, do nothing
+        return t;
+    }
+
+    private Node<E> remove(E x, Node<E> t) {
+        if (t == null)
+            return t;
+        int compareResult = x.compareTo(t.element);
+        if (compareResult < 0)
+            t.left = remove(x, t.left);
+        else if (compareResult > 0)
+            t.right = remove(x, t.right);
+        else if (t.left != null && t.right != null) {
+            t.element = findMin(t.right).element;
+            t.right = remove(t.element, t.right);
+        } else
+            t = (t.left != null) ? t.left : t.right;
+        return t;
+    }
+
+    private Node<E> findMin(Node<E> t) {
+        if (t == null)
+            return null;
+        else if (t.left == null)
+            return t;
+        return findMin(t.left);
+    }
+
+    private Node<E> findMax(Node<E> t) {
+        if (t != null)
+            while (t.right != null)
+                t = t.right;
+        return t;
+    }
+
+    private boolean contains(E x, Node<E> t) {
+        if (t == null)
+            return false;
+        int compareResult = x.compareTo(t.element);
+        if (compareResult < 0)
+            return contains(x, t.left);
+        else if (compareResult > 0)
+            return contains(x, t.right);
+        else
+            return true; // match
+    }
+
+    private void printTree(Node<E> node) {
+        if (node != null) {
+            printTree(node.left);
+            System.out.println(node.element);
+            printTree(node.right);
+        }
+
+    }
+
 
 }
