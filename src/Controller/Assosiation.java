@@ -1,7 +1,7 @@
 package Controller;
 
 
-public class Assosiation<K, V> {
+public class Assosiation<K, V> implements Comparable<Assosiation<String, String>> {
     private K key;
     private V value;
 
@@ -20,5 +20,15 @@ public class Assosiation<K, V> {
 
     public void setValue(V value) {
         this.value = value;
+    }
+
+    @Override
+    public int compareTo(Assosiation<String, String> o) {
+        return 0;
+    }
+
+    @Override
+    public String toString() {
+        return key.toString() + ": " + value.toString();
     }
 }

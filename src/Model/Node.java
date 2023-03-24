@@ -17,6 +17,35 @@ public class Node<E> {
         this.left = left;
         this.right = right;
     }
+
+    public E getElement() {
+        return element;
+    }
+
+    public void setElement(E element) {
+        this.element = element;
+    }
+
+    public Node<E> getLeft() {
+        return left;
+    }
+
+    public void setLeft(Node<E> left) {
+        this.left = left;
+    }
+
+    public Node<E> getRight() {
+        return right;
+    }
+
+    public void setRight(Node<E> right) {
+        this.right = right;
+    }
+
+    @Override
+    public String toString() {
+        return "Node [data=" + element + ", leftChild=" + left + ", rightChild=" + right + "]";
+    }
 }
 
-}
+

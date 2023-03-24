@@ -1,5 +1,7 @@
 package Model;
 
+import Controller.WordAssociation;
+
 public class BST<E extends Comparable<? super E>> {
     private Node<E> root;
 
@@ -39,12 +41,8 @@ public class BST<E extends Comparable<? super E>> {
         return contains(x, root);
     }
 
-    public void printTree() {
-        if (isEmpty())
-            System.out.println("Empty tree");
-        else
-            printTree(root);
-    }
+
+
 
     private Node<E> insert(E x, Node<E> t) {
         if (t == null)
@@ -102,14 +100,45 @@ public class BST<E extends Comparable<? super E>> {
             return true; // match
     }
 
-    private void printTree(Node<E> node) {
+    public void printTree(Node<E> node) {
         if (node != null) {
-            printTree(node.left);
-            System.out.println(node.element);
-            printTree(node.right);
-        }
+            printTree(node.getLeft());
 
+            if (node.getElement() instanceof WordAssociation) {
+                WordAssociation wa = (WordAssociation) node.getElement();
+                System.out.println(wa.toString());
+            } else {
+                System.out.println(node.getElement().toString());
+            }
+
+            printTree(node.getRight());
+        }
     }
 
 
+    public Node<E> getRoot() {
+        return root;
+    }
+
+    public void setRoot(Node<E> root) {
+        this.root = root;
+    }
+
+    public E search(E x) {
+        return searchRec(x, root);
+    }
+
+    private E searchRec(E x, Node<E> node) {
+        if (node == null) {
+            return null;
+        }
+        int compareResult = x.compareTo(node.element);
+        if (compareResult < 0) {
+            return searchRec(x, node.left);
+        } else if (compareResult > 0) {
+            return searchRec(x, node.right);
+        } else {
+            return node.element; // match
+        }
+    }
 }
