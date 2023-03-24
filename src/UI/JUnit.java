@@ -17,9 +17,7 @@ import static org.junit.Assert.assertEquals;
 
 public class JUnit {
 
-    public static BST<WordAssociation> englishTree = new BST<>();
-    public static BST<WordAssociation> frenchTree = new BST<>();
-    public static BST<WordAssociation> espTree = new BST<>();
+
 
 
 
