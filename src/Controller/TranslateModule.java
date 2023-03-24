@@ -18,7 +18,7 @@ public class TranslateModule {
     public static String translaterawtext(Scanner scanner) {
         System.out.println("¿Cual es el texto que deseas traducir?");
         String porTraducir = scanner.nextLine().toLowerCase();
-        System.out.println("¿A que idioma desea traducirlo?");
+        System.out.println("¿A que idioma desea traducirlo?(Español,Ingles,Frances)");
         String idioma = scanner.nextLine();
 
 
@@ -122,6 +122,9 @@ public class TranslateModule {
 
                 }
                 break;
+
+            default:
+                System.out.println("No se encontro este idioma... intentalo de nuevo");
         }
 
         String traduccion = "";
@@ -149,7 +152,7 @@ public class TranslateModule {
 
 
     public static String translateDocumenttext(String texto , Scanner scanner){
-        System.out.println("¿A que idioma desea traducirlo?");
+        System.out.println("¿A que idioma desea traducirlo?(Español,Ingles,Frances)");
         String idioma = scanner.nextLine();
 
         return Translation(TokenMaker(texto),idioma);

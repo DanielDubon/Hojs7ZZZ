@@ -42,6 +42,10 @@ public class DriverProgram {
                     showBSTs();
                     break;
 
+                case "4":
+                    menu = false;
+                    System.out.println("Adios...");
+                    break;
 
             }
 
